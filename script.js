@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Elements ---
     const listContainer = document.getElementById('bid-list');
     const tabs = document.querySelectorAll('.tab');
-    const statusDot = document.querySelector('.status-dot');
-    const updateBtn = document.getElementById('update-btn');
 
     // Initial Overlay Elements
     const overlay = document.getElementById('initial-overlay');
@@ -90,13 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isInitial) {
             if (startBtn) startBtn.style.display = 'none';
             if (loadingContainer) loadingContainer.style.display = 'flex';
-        } else {
-            if (updateBtn) {
-                if (updateBtn.classList.contains('loading')) return;
-                updateBtn.classList.add('loading');
-                updateBtn.textContent = '更新中...';
-                if (statusDot) statusDot.classList.add('loading');
-            }
         }
 
         try {
@@ -132,12 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     if (overlay) overlay.classList.add('hidden');
                 }, 800);
-            } else {
-                if (updateBtn) {
-                    updateBtn.classList.remove('loading');
-                    updateBtn.textContent = '情報更新';
-                }
-                if (statusDot) statusDot.classList.remove('loading');
             }
         }
     }
@@ -152,11 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
             filterAndRender(tab.dataset.category);
         });
     });
-
-    // Update Button (Top Right)
-    if (updateBtn) {
-        updateBtn.addEventListener('click', () => fetchLatestData(false));
-    }
 
     // Start Button (Overlay)
     if (startBtn) {
