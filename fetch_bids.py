@@ -23,11 +23,14 @@ def get_latest_bids():
     # If "title_keywords" is None, no title filtering is applied (for MAFF category).
     
     CONFIG = [
-        # 1. Agriculture: 農業、農地、農協
+        # 1. Agriculture: 農業、農地、農協 + Farmstay (農泊、移住、定住、農業体験)
         {
             "id": "agriculture",
-            "queries": [{"S": "農業"}, {"S": "農地"}, {"S": "農協"}],
-            "title_keywords": ["農業", "農地", "農協"],
+            "queries": [
+                {"S": "農業"}, {"S": "農地"}, {"S": "農協"},
+                {"S": "農泊"}, {"S": "移住"}, {"S": "定住"}, {"S": "農業体験"}
+            ],
+            "title_keywords": ["農業", "農地", "農協", "農泊", "移住", "定住", "農業体験"],
             "required_agencies": None
         },
         # 2. Food: 食品、食料品、米、小麦、野菜、食育
@@ -38,15 +41,6 @@ def get_latest_bids():
                 {"S": "小麦"}, {"S": "野菜"}, {"S": "食育"}
             ],
             "title_keywords": ["食品", "食料品", "米", "小麦", "野菜", "食育"],
-            "required_agencies": None
-        },
-        # 3. Farmstay: 農泊、移住、定住、農業体験
-        {
-            "id": "farmstay",
-            "queries": [
-                {"S": "農泊"}, {"S": "移住"}, {"S": "定住"}, {"S": "農業体験"}
-            ],
-            "title_keywords": ["農泊", "移住", "定住", "農業体験"],
             "required_agencies": None
         },
         # 4. MAFF (Other): All from Ministry of Agriculture
@@ -84,7 +78,7 @@ def get_latest_bids():
                 count = 0
                 for item in results:
                     # Limit per keyword scan
-                    if count >= 30: # Increased limit to ensure we find enough valid items
+                    if count >= 100: # Increased limit to ensure we find enough valid items
                         break
                     
                     # Extract Agency FIRST

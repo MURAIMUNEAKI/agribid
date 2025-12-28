@@ -12,7 +12,6 @@ function getCategoryLabel(cat) {
     const map = {
         'agriculture': '農業',
         'food': '食品',
-        'farmstay': '農泊',
         'other': 'その他'
     };
     return map[cat] || 'その他';
